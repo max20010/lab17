@@ -1,0 +1,44 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+struct point
+{
+	int x, y;
+};
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	int n, x_[3],y_[3];
+	double d = 0, max=0;
+	cin >> n;
+	point* p = new point[n];
+	for (int i = 0; i < n; i++) {
+		cout << "Введите x и y: ";
+		cin >> p[i].x >> p[i].y;
+	}
+	for (int i = 0; i < n; i++) {   
+		for (int j = 1; j < n; j++) {
+			for (int k = 2; k < n; k++) {
+				d += sqrt(pow(p[i].x - p[j].x, 2) + pow(p[i].y - p[j].y, 2));
+				d += sqrt(pow(p[j].x - p[k].x, 2) + pow(p[j].y - p[k].y, 2));
+				d += sqrt(pow(p[k].x - p[i].x, 2) + pow(p[k].y - p[i].y, 2));
+				if (max < d) {
+					max = d;
+					for (int l = 0,f=0; l < n; l++) {
+						if (i == l || j == l || k == l) {
+							x_[f] = p[l].x;
+							y_[f] = p[l].y;
+							f++;
+						}
+					}
+				}
+				d = 0;
+			}
+		}
+	}
+	cout << "max = " << max << endl;
+	for (int i = 0; i < 3; i++) {
+		cout << x_[i] << "\t" << y_[i] << endl;
+	}
+	cout << endl;
+}
