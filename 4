@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+struct point
+{
+	int x, y;
+};
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	int n,m;
+	double d, max;
+	bool check=false;
+	cout << "Введите кол-во точек: "; 
+	cin >> n;
+	point* p = new point[n];
+	for (int i = 0; i < n; i++) {
+		cout << "Введите x и y: ";
+		cin >> p[i].x>>p[i].y;
+	}
+	max = sqrt(pow(p[0].y, 2) + pow(p[0].x, 2));
+	for (int i = 0; i < n; i++) {
+		if (p[i].y > 0 && p[i].x < 0) {
+			d = sqrt(pow(p[i].y, 2) + pow(p[i].x, 2));
+			if (max < d) {
+				max = d;
+				m = i;
+			}
+			check = true;
+		}
+	}
+	if (check) {
+		cout << "(x, y) = "<< p[m].x << " " << p[m].y;
+	}
+	else {
+		cout << "(x, y) = 0, 0";
+	}
+	cout << endl;
+	delete[]p;
+}
